@@ -4,6 +4,7 @@
 node {
     // First load the deployment scripts into the server
     stage("Get the Latest Deployment Scripts"){
+        sh 'sudo rm -rf *'
         git url: 'https://github.com/Lemmah/deploy-healthchecks.git'
         sh 'ls'
     }
@@ -12,7 +13,6 @@ node {
         sh '''
             sudo apt-get -y install python-virtualenv
             sudo apt-get -y install python3-pip
-            sudo rm -rf *
             '''
     }
     // It's often recommended to run a django project from a virtual environment.

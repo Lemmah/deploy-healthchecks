@@ -31,19 +31,16 @@ node {
     stage ("Get Latest Code") {
        sh '''
         git clone https://github.com/lemmah/healthchecks-clone.git
-        ls
         '''
     }
     
     // Then we install our requirements
     stage ("Install Application Dependencies") {
         sh '''
-            ./setup.sh
             . hc-venv/bin/activate
-            export DJANGO_SETTINGS_MODULE=
             ls
             python --version
-            pip install -r requirements.txt
+            pip install -r healthchecks-clone/requirements.txt
             pip install mock
             deactivate
             '''
@@ -55,10 +52,9 @@ node {
     stage ("Setup Project database") {
         sh '''
             . hc-venv/bin/activate
-            export DJANGO_SETTINGS_MODULE=
-            cp hc/local_settings.py.example hc/local_settings.py
-            django-admin.py makemigrations accounts admin api auth contenttypes payments sessions
-            django-admin.py migrate
+            cp healthchecks-clone/hc/local_settings.py.example healthchecks-clone/hc/local_settings.py
+            ./healthchecks-clone/manage.py makemigrations accounts admin api auth contenttypes payments sessions
+            ./healthchecks-clone/manage.py migrate
             deactivate
             '''
     }
@@ -69,8 +65,7 @@ node {
         try {
             sh '''
                 . hc-venv/bin/activate
-                export DJANGO_SETTINGS_MODULE=
-                django-admin.py test
+                ./healthchecks-clone/manage.py test
                 deactivate
                '''
         }

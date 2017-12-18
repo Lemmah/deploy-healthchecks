@@ -2,6 +2,11 @@
 // This deployment script assumes that there is only a single Jenkins server (master) and there are no agents.
 
 node {
+    // First load the deployment scripts into the server
+    stage("Get the Latest Deployment Scripts"){
+        git url: 'https://github.com/Lemmah/deploy-healthchecks.git'
+        sh 'ls'
+    }
     // Just incase the machine is not configured for python testing and dev
     stage("Setup Project Env") {
         sh '''
@@ -15,8 +20,9 @@ node {
     stage("Create Project Virtual Env") {
         sh '''
             virtualenv --python=python3 hc-venv
-            export DJANGO_SETTINGS_MODULE=
             . hc-venv/bin/activate
+            python --version
+            which python
             deactivate
             '''
     }  

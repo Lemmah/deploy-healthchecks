@@ -29,8 +29,10 @@ node {
     
     // The stage below is attempting to get the latest version of our application code.
     stage ("Get Latest Code") {
-        git url: 'https://github.com/Lemmah/healthchecks-clone.git'
-        sh 'ls'
+       sh '''
+        git clone https://github.com/lemmah/healthchecks-clone.git
+        ls
+        '''
     }
     
     // Then we install our requirements

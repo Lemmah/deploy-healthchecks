@@ -30,8 +30,8 @@ node {
     // The stage below is attempting to get the latest version of our application code.
     stage ("Get Latest Code") {
        sh '''
-        git clone https://github.com/lemmah/healthchecks-clone.git
-        '''
+            git clone https://github.com/lemmah/healthchecks-clone.git
+            '''
     }
     
     // Then we install our requirements
@@ -56,6 +56,7 @@ node {
             which python
             pip freeze
             cp healthchecks-clone/hc/local_settings.py.example healthchecks-clone/hc/local_settings.py
+            pip install django
             python healthchecks-clone/manage.py makemigrations accounts admin api auth contenttypes payments sessions
             python healthchecks-clone/manage.py migrate
             deactivate

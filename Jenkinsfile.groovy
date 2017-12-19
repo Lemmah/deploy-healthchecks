@@ -52,6 +52,8 @@ node {
     stage ("Setup Project database") {
         sh '''
             . hc-venv/bin/activate
+            python --version
+            which python
             cp healthchecks-clone/hc/local_settings.py.example healthchecks-clone/hc/local_settings.py
             ./healthchecks-clone/manage.py makemigrations accounts admin api auth contenttypes payments sessions
             ./healthchecks-clone/manage.py migrate

@@ -56,8 +56,8 @@ node {
             which python
             pip freeze
             cp healthchecks-clone/hc/local_settings.py.example healthchecks-clone/hc/local_settings.py
-            ./healthchecks-clone/manage.py makemigrations accounts admin api auth contenttypes payments sessions
-            ./healthchecks-clone/manage.py migrate
+            python healthchecks-clone/manage.py makemigrations accounts admin api auth contenttypes payments sessions
+            python healthchecks-clone/manage.py migrate
             deactivate
             '''
     }
